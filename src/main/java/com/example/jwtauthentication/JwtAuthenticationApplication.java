@@ -9,11 +9,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @SpringBootApplication
-@EntityScan(basePackageClasses = {
-  JwtauthenticationApplication.class,
-  Jsr310JpaConverters.class
-})
-public class JwtauthenticationApplication {
+@EntityScan(basePackageClasses = { JwtAuthenticationApplication.class, Jsr310JpaConverters.class })
+public class JwtAuthenticationApplication {
 
   @PostConstruct
   void init() {
@@ -21,7 +18,7 @@ public class JwtauthenticationApplication {
   }
 
   public static void main(String[] args) {
-    SpringApplication.run(JwtauthenticationApplication.class, args);
+    SpringApplication.run(JwtAuthenticationApplication.class, args);
   }
 
 }
