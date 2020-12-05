@@ -9,12 +9,12 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import java.util.Date;
 import org.springframework.util.StringUtils;
 
 @Component
@@ -87,11 +87,11 @@ public class JwtTokenProvider {
   }
 
   public JwtAuthenticationResponse generateNewTokens(String refreshToken) {
-    if(StringUtils.hasText(refreshToken)){
+    if (StringUtils.hasText(refreshToken)) {
       validateToken(jwtRefSecret, refreshToken);
       return generateToken(getUserIdFromRefreshToken(refreshToken));
+    } else {
+      throw new AppException("Refresh token required!", HttpStatus.BAD_REQUEST);
     }
-    else
-      throw new AppException("Refresh token required!");
   }
 }
